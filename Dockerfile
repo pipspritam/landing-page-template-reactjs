@@ -1,25 +1,23 @@
 FROM node:alpine
 
-# 1. Explicitly create the /app directory and give the 'node' user ownership
-RUN mkdir -p /app && chown -R node:node /app
-
-# 2. Set the working directory
 WORKDIR /app
 
 # Copy application source
 COPY . .
 
+
 # Install dependencies as root
 RUN npm install
+
 
 # Build the application
 RUN npm run build
 
 # Set proper ownership
-RUN chown -R pritam:pritam /app
+RUN chown -R daemon:daemon /app
 
 # Switch to non-root user
-USER pritam
+USER daemon
 
 EXPOSE 3000
 
